@@ -1,36 +1,36 @@
+
 import React from "react"
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react"
+import { authModalState } from "../../atoms/authModalAtom";
+import { useRecoilState } from "recoil";
+import { Text } from "@chakra-ui/react";
 
 const AuthModal: React.FC = () => {
-    return <div>
-        const {isOpen, onOpen, onClose} = useDisclosure()
+    const [modalState, setModalState] = useRecoilState(authModalState)
 
-        return (
-        <>
-            <Button onClick={onOpen}>Open Modal</Button>
+    const handleClose = () => {
+        setModalState((prev) => ({
+            ...prev,
+            open: false
+        }))
+    }
 
-            <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+    return (
+        <div>
+            <Modal blockScrollOnMount={false} isOpen={modalState.open} onClose={handleClose}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Modal Title</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Text fontWeight='bold' mb='1rem'>
+                        <Text>
                             You can scroll the content behind the modal
                         </Text>
-                        Test
                     </ModalBody>
-
-                    <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                        <Button variant='ghost'>Secondary Action</Button>
-                    </ModalFooter>
                 </ModalContent>
             </Modal>
-        </>
-        )
-    </div>
+        </div>
+    )
 }
+
 export default AuthModal
