@@ -5,7 +5,7 @@ type RightContentProps = {
 
 }
 
-const RightContent:React.FC<RightContentProps> =()=>{
+const RightContent:React.FC=()=>{
     return (
         <>
         <Flex justify="center" align="center">
