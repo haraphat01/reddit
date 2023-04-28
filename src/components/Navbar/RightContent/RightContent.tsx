@@ -3,18 +3,16 @@ import { Flex } from "@chakra-ui/react"
 import AuthButton from "./AuthButton"
 
 type RightContentProps = {
-
+    user: any
 }
 
-const RightContent:React.FC=()=>{
-    return (
-        <>
-        <AuthModal/>
+const RightContent:React.FC<RightContentProps>=({user})=>(
+    <>
+        <AuthModal />
         <Flex justify="center" align="center">
-            <AuthButton/>
+            {user ? <div>{user.displayName}</div> : <AuthButton />}
         </Flex>
-        </>
-    )
-}
+    </>
+)
 
 export default RightContent
