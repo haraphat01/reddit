@@ -3,6 +3,8 @@ import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { isWhiteSpaceLike } from "typescript";
 import { useSetRecoilState } from "recoil";
 import { authModalState } from "@/atoms/authModalAtom";
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import {auth} from "../../../firebase/clientApp"
 
 type LoginProps = {
 
@@ -14,7 +16,18 @@ const Login:React.FC<LoginProps> =()=> {
         password: "",
     });
 
-    const onSubmit = ()=> {}
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useSignInWithEmailAndPassword(auth);
+      
+    const onSubmit = (event: React.ChangeEvent<HTMLInputElement>) =>  {
+        event.preventDefault()
+        signInWithEmailAndPassword(loginForm.email, loginForm.password)
+
+    }
     const onChange = (event: React.ChangeEvent<HTMLInputElement>)=> {
         setLoginForm(prev =>({
             ...prev,
@@ -66,8 +79,9 @@ const Login:React.FC<LoginProps> =()=> {
              }}
              bg="grey.50"
             />
-
-            <Button width="100%" height="36px" mt={2} mb={2} type= "submit">Log In</Button>
+           
+            <Text textAlign="center" color="red">{}</Text>
+            <Button width="100%" height="36px" mt={2} mb={2} type= "submit" >Log In</Button>
             <Flex fontSize="9pt" justifyContent="center">
                 <Text mr={1}>New here?</Text>
                 <Text color="blue.500" fontWeight={700} cursor="pointer" 
